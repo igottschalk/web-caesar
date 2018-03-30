@@ -36,12 +36,6 @@ form = """
     </body>
 </html> 
 """
-def write_form(text=""):
-    return form % {'text': cgi.escape(text)}
-
-@app.route("/")
-def index():
-    return form
 
 @app.route("/", methods=['POST'])
 def encrypt():
@@ -49,7 +43,10 @@ def encrypt():
     text = request.form["text"]
 
     rot = int(rot)
-    text = rotate_string(text, rot)
-    return write_form(text)
+    return "<h1>" + rotate_string(text, rot) + "<h1>"
+
+@app.route("/")
+def index():
+    return form
 
 app.run()
